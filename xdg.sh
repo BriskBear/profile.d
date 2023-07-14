@@ -1,2 +1,2 @@
-# XDG environment variables : 1674413779
+# XDG environment variables : 1689333774
 export XDG_CONFIG_HOME=/etc/xdg

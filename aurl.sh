@@ -1,4 +1,4 @@
-# Download tar packages from AUR and install them, including dependencies from pacman : 1674413289
+# Download tar packages from AUR and install them, including dependencies from pacman : 1689333662
 function aurl() {
   # Prepare Variables
   arguments="${@:2}"

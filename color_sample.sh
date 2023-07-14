@@ -1,3 +1,4 @@
+# sample terminal 256-colors : 1689333689
 function color_sample() {
   numbers=( $(seq 0 256) )
   lead="\u001b[38;5;"

@@ -1,4 +1,4 @@
-# Git shortcuts large and small : 1675284111
+# Git shortcuts large and small : 1689333711
 # Basics 
 alias GP='git push'
 alias ga='git add'

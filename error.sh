@@ -1,4 +1,4 @@
-# Send a red error message and return 1 : 1674419159
+# Send a red error message and return 1 : 1689333702
 function error() {
   msg="\033[1;31m$1\033[0m"
   [[ $# == 2 ]] && code=$2 || code=1

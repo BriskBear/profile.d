@@ -1,4 +1,4 @@
-# Persisant aliases for every bash session : 1675279889
+# Persisant aliases for every bash session : 1689333654
   alias EAL='sudo $EDITOR /etc/profile.d/aliases.sh'
   alias SVC='sudo systemctl'
   alias q='exit'

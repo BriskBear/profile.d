@@ -1,4 +1,4 @@
-# Source a properly-timestamped file : 1677880717
+# Source a properly-timestamped file : 1689333692
 function confirm-stamp() {
   modified=$(stat -c %Y "$1")
   timestamp=$(head -n 1 "$1"|awk -F ': ' '{print $NF}')
