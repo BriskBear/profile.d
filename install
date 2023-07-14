@@ -1,0 +1,13 @@
+#!/bin/bash
+
+src=$(dirname $(realpath $0))
+[[ $(which rsync) ]] || ( sudo pacman -Sy --noconfirm rsync )
+
+sudo rsync -aAX --info=progress2 \
+  --exclude=profile --exclude=bash.bashrc --exclude=install --exclude=C --exclude=cfg_nvim \
+  $src /etc/profile.d/
+
+sudo cp -f $scr/profile /etc/
+sudo cp -f $src/bash.bashrc /etc/
+sudo cp -f $src/C/* /usr/bin/
+sudo cp -r $src/cfg_nvim /etc/xdg/nvim
