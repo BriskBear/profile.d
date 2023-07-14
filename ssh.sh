@@ -1,4 +1,4 @@
-# Shortcuts for ssh commands : 1675136703
+# Shortcuts for ssh commands : 1689333746
 ssh-get-keys() {
   read -p 'URL to copy public keys: '
   curl -#L $REPLY >> $HOME/.ssh/authorized_keys

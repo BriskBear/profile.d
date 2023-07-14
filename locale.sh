@@ -1,4 +1,4 @@
-# load locale.conf in XDG paths. : 1674413586
+# load locale.conf in XDG paths. : 1689333717
 # /etc/locale.conf loads and overrides by kernel command line is done by systemd
 # But we override it here, see FS#56688
 if [ -z "$LANG" ]; then

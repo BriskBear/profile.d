@@ -1,4 +1,4 @@
-# Subpixel hinting mode can be chosen by setting the right TrueType interpreter : 1674413430
+# Subpixel hinting mode can be chosen by setting the right TrueType interpreter : 1689333704
 # version. The available settings are:
 #
 #     truetype:interpreter-version=35  # Classic mode (default in 2.6)
