@@ -1,22 +1,7 @@
-# Persisant aliases for every bash session : 1689333654
-  alias EAL='sudo $EDITOR /etc/profile.d/aliases.sh'
-  alias SVC='sudo systemctl'
-  alias q='exit'
-  alias rs='reset && source /etc/profile'
-  alias sv='sudo $EDITOR'
-  alias xrg='xargs -I %'
-  alias ls='exa -F'
-  alias la='exa -Fa'
-  alias ll='exa -Fal'
-  alias tree='exa -FT'
-  alias tal='exa -FaglTL'
+# System-Wide Aliases : 1697216095
+alias rs='reset ; source /etc/profile'                # Reload the profile efficiently
+alias sv='sudo XDG_CONFIG_HOME=$XDG_CONFIG_HOME nvim' # Edit as root with config
+alias lsblk='lsblk -o LABEL,NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS'
 
-  # Package Manager
-  alias purge='sudo pacman -Rcc'
-  alias setup='sudo pacman -S --noconfirm'
-  alias update='sudo pacman -Scc --noconfirm && sudo pacman -Syyu --noconfirm'
-  alias clean='sudo pacman -Scc'
-
-  # Quick move
-  alias ..='cd ..'
-  alias fgit='git clone --depth 1' # Shallow clone
+# Rails stuff
+alias rced='rails credentials:edit --environment development'
