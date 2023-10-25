@@ -1,4 +1,5 @@
 # Source essential asdf functions : 1698265058
+export ASDF_DIR=/asdf
 . /asdf/asdf.sh
 . /asdf/completions/asdf.bash
 
