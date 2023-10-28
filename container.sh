@@ -1,7 +1,7 @@
 # Manage Containers : 1697236258
 
 function box() {
-  if [ ! -n $container ]
+  if [[ ! -n $container ]]
   then
     export container=$(
       [[ -e $(which docker 2>/dev/null) ]] \
