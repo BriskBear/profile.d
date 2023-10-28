@@ -10,7 +10,7 @@ sudo rsync -aAX --info=progress2 \
 
 sudo cp -f $src/profile /etc/
 sudo cp -f $src/bash.bashrc /etc/
-sudo cp -f $src/C/* /usr/bin/
+sudo cp -f $src/C/* /usr/local/bin/
 sudo cp -r $src/cfg_nvim /etc/xdg/nvim
 
 sed -i 's/PS1=.*//g' ~/.bashrc
