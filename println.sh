@@ -2,3 +2,5 @@
 println() {
   [[ $# > 0 ]] && printf '%s\n' "$@" || printf '%s\n' "${list[@]}"
 }
+
+alias setl='. set_list.sh'
