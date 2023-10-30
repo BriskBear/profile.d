@@ -1,7 +1,7 @@
-# Manage Containers : 1697236258
+# Manage Containers : 1698680143
 
 function box() {
-  if [[ ! -n $container ]]
+  if [[ ! -n $container ]] 
   then
     export container=$(
       [[ -e $(which docker 2>/dev/null) ]] \
@@ -11,7 +11,7 @@ function box() {
     ))
   fi
 
-  $container "$@"
+   $container "$@"
 }
 
 function container-list() {
@@ -81,9 +81,16 @@ function box-remove-all() {
   esac
 }
 
+function box-run-enter() {
+  box-search-run   $1
+  box-search-enter $1
+}
+
 alias bcp='box cp'
+alias bcrm='box-remove container'
 alias bcpr='box container prune'
 alias bipr='box image prune'
+alias birm='box-remove image'
 alias brac='box-remove-all container'
 alias brai='box-remove-all image'
 alias brc='box-remove container'
@@ -91,8 +98,10 @@ alias bri='box-remove image'
 alias bsd='box-search-destroy'
 alias bse='box-search-enter'
 alias bsr='box-search-run'
+alias bsre='box-run-enter'
 alias bsrm='box-search-rm'
 alias bss='box-search-stop'
 alias cl='container-list'
+alias cs='container-search'
 alias il='image-list'
 alias is='image-search'
