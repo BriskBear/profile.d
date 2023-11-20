@@ -10,7 +10,7 @@
   alias pd='pushd'
   alias q='exit'
   alias rm='rm -v'
-  alias rs='reset ; source /etc/profile'                # Reload the profile efficiently
+  alias rs='clear ; printf "\033[1B\033[38;5;30m\e[3m     # Shell Reloaded\e[0m\033[0m\033[20D\033[2A" ; source /etc/profile' # Reload the profile efficiently
   alias sv='sudo XDG_CONFIG_HOME=$XDG_CONFIG_HOME nvim' # Edit as root with config
   alias tal='exa -FaglTL'
   alias tree='exa -FT'
