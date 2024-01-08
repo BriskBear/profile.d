@@ -1,4 +1,4 @@
-# Manage Containers : 1698680143
+# Manage Containers : 1699045122
 
 function box() {
   if [[ ! -n $container ]] 
@@ -11,12 +11,12 @@ function box() {
     ))
   fi
 
-   $container "$@"
+  sudo $container "$@"
 }
 
 function container-list() {
   export clist=($(box ps -a|tail -n +2|awk '{print $1}'))
-  box ps "$@"
+  box ps -a "$@"
 }
 
 function image-list() {
@@ -45,9 +45,10 @@ function box-search-stop() {
 }
 
 function box-search-enter() {
-  [[ $# -eq 1 ]] \
-    && box exec -it $(container-search $1) bash \
-    || box exec -it $(container-search $1) ${@:2}
+  if [[ $# -eq 1 ]]
+  then box exec -it $(container-search $1) bash
+  else box exec -it $(container-search $1) ${@:2}
+  fi
 }
 
 function box-remove() {
@@ -60,7 +61,7 @@ function box-search-rm() {
 }
 
 function box-search-run() {
-  box run --name $1 -d $(image-search $1) tail -f /dev/null
+  box run -h $1 --name $1 -d $(image-search $1|head -n1) tail -f /dev/null
 }
 
 function box-search-destroy() {
@@ -70,10 +71,10 @@ function box-search-destroy() {
 function box-remove-all() {
   case $1 in
     container)
-      pcl && println "${clist[@]}"|xrg box container rm -f %
+      cl && println "${clist[@]}"|xrg box container rm -f %
       ;;
     image)
-      pil && println "${ilist[@]}"|xrg box image rm -f %
+      il && println "${ilist[@]}"|xrg box image rm -f %
       ;;
     *)
       error "box cannot remove $1"
