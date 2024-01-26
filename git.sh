@@ -1,4 +1,4 @@
-# Git shortcuts large and small : 1698690335
+# Git shortcuts large and small : 1706231563
 source /etc/profile.d/git-sh-prompt
 
 function git-add-commit() {
@@ -89,18 +89,22 @@ function git-us-remote() {
 alias GAC='git-add-commit'
 alias GP='git push'
 alias ga='git add'
+alias gb='git branch'
 alias gbr='git branch -r'
+alias gc='git commit -S -m'
 alias gca='git-clone-all'
 alias gcam='git-commit'
 alias gck='git checkout'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gdc='git diff --cached'
-alias gits='git status -sb'
 alias gits='git-status-brief'
 alias gl='git log'
 alias gp='git pull'
 alias gpf='git-push-full'
+alias gra='git remote add'
+alias grr='git remote remove'
+alias grv='git remote -v'
 alias gs='git show'
 alias gst='git stash'
 alias gur='git-us-remote'
