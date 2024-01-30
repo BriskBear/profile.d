@@ -1,7 +1,5 @@
-# Find where the shortcut is to review / update it : 1680216495
+# Find where the shortcut is to review / update it : 
 shortcuts=(
-  ~/.io/config
-  ~/.local/bin
   /etc/profile.d
 )
 
