@@ -1,4 +1,4 @@
-# Git shortcuts large and small : 1706231563
+# Git shortcuts large and small : 
 source /etc/profile.d/git-sh-prompt
 
 function git-add-commit() {
@@ -8,7 +8,7 @@ function git-add-commit() {
   echo -e "\u001b[38;5;3mCommit Message:\u001b[0m"
   read
   git add $@
-  git commit -m"$REPLY" 
+  git commit -S -m "$REPLY" 
 }
 
 function git-clone-all() {
@@ -98,7 +98,7 @@ alias gck='git checkout'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gdc='git diff --cached'
-alias gits='git-status-brief'
+alias gits='git status -sb'
 alias gl='git log'
 alias gp='git pull'
 alias gpf='git-push-full'
