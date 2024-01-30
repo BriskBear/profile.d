@@ -1,9 +1,9 @@
-# Send a <color> error message and return 1 / [code] : 1696954588
+# Send a <color> error message and return 1 / [code] : 
 
 ## aptly named because this was also breaking shell: TODO more testing required
 function breaker() {
   [[ $# == 2 ]] && code=$2 || code=1
-  echo -e "\033[38;5;9m$1\033[0m"
+  echo -e "\033[38;5;196mERR: $1\033[0m"
   return "$2" &>/dev/null \; exit "$2"
 }
 
@@ -14,9 +14,7 @@ function reply() {
   [[ $# == 3 ]] && code=$3 || code=3
   case $kind in
     -e|--error)
-        breaker "$word" "$code" # TODO: More testing required
-#         color='\033[38;5;9m'
-#         memo="ERR: $word"
+        breaker "$word" "$code"
       ;;
     -w|--warn)
         code=0
@@ -39,3 +37,4 @@ function reply() {
   echo -e "$msg" && return $code
 }
 
+alias error='reply -e'
