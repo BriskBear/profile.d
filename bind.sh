@@ -1,5 +1,3 @@
-# Setup in-terminal keyboard-shortcuts : 1689333672
-bind -x '"\C-l": "clear -x;date"'
-bind -x '"\e-p": "git stash --all; git pull"'
-bind -x '"\e-\C-r": "restart-shell"'
-bind '"kj": "\e"'
+# CMDline keyboard shortcuts : 
+bind '"kj": "\e"' &>/dev/null
+bind -x '"\C-l": "clear ; date|lolcat"' &>/dev/null
