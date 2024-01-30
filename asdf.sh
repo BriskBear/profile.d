@@ -1,7 +1,8 @@
-# Source essential asdf functions : 1698265058
-export ASDF_DIR=/asdf
+# Source essential asdf functions : 
+export ASDF_DIR=/opt/asdf
 . /opt/asdf/asdf.sh
 . /opt/asdf/completions/asdf.bash
+[[ -d ${XDG_CONFIG_HOME}/asdf-direnv ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
 
 function asdf_install_latest() {
   [[ $(asdf plugin list|grep $1) ]] || asdf plugin-add $1
