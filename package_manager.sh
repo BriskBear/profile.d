@@ -1,4 +1,4 @@
-# Call the appropriate package manager for your distro with unified verbiage : 1698689256
+# Call the appropriate package manager for your distro with unified verbiage : 
 
 declare -A clean
 declare -A purge
@@ -20,8 +20,9 @@ function ubuntu_update() {
 }
 
 function package() {
-  [[ -n $DISTRO ]] \
-    && ( export DISTRO=$( cat /etc/*{release,version} 2>/dev/null|grep -e '^ID='|awk -F= '{print $NF}' ))
+  if [[ -n $DISTRO ]]
+  then export DISTRO=$( cat /etc/*{release,version} 2>/dev/null|grep -e '^ID='|awk -F= '{print $NF}' )
+  fi
   unset -v call command
 
   call=$(echo $1|tr '[:lower:]' '[:upper:]')
@@ -44,7 +45,7 @@ function package() {
       ;;
   esac
 
-  sudo $command ${*:2} 2>&1 >>/tmp/package_manager.log
+  [[ -n $command ]] && sudo $command ${*:2} 2>&1 >>/tmp/package_manager.log
 }
 
 alias clean='package clean'
