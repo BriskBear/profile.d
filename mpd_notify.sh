@@ -43,7 +43,7 @@ function mpd-notify() {
 }
 
 ## Dependencies: 
-#    - mpd
-#    - mpc
 #    - dunst
 #    - dunstify
+#    - mpc
+#    - mpd
