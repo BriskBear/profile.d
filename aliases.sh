@@ -1,8 +1,10 @@
-# System-Wide Aliases : 1706231398
+# System-Wide Aliases : 
 alias SVC='sudo systemctl'
 alias cat='$PAGER'
-alias l='ls -F'
-alias ls='exa'
+alias l='eza -F'
+alias la='eza -Fa'
+alias ll='eza -Fal'
+alias ls='eza -F'
 alias lsblk='lsblk -o LABEL,NAME,FSUSED,FSUSE%,FSAVAIL,SIZE,TYPE,FSTYPE,MOUNTPOINTS,UUID'
 alias lsu='ls /media/usb/0'
 alias pd='pushd'
@@ -14,12 +16,22 @@ alias xo='xdg-open'
 
 # Profile things
 alias ea='nf aliases'
+alias nf='$EDITOR $XP/'
+alias pd='pushd'
+alias q='exit'
+alias rm='rm -v'
+alias rs='reset ; source /etc/profile'                # Reload the profile efficiently
+alias sv='sudo XDG_CONFIG_HOME=$XDG_CONFIG_HOME nvim' # Edit as root with config
+alias tal='exa -FaglTL'
+alias tree='exa -FT'
+alias xrg='xargs -I %'
+
+# Quick move
+alias ..='cd ..'
+alias fgit='git clone --depth 1' # Shallow clone
 
 # Rails stuff
 alias rced='rails credentials:edit --environment development'
 
 # Rsync defaults
 alias rsync='rsync -ahAX --info=progress2'
-
-# AppImages
-alias onenote='/opt/AppImage/P3X-OneNote-2020.4.185-i386.AppImage &>/tmp/onenote.log &'
