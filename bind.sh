@@ -1,3 +1,3 @@
 # CMDline keyboard shortcuts : 
-bind '"kj": "\e"' &>/dev/null
-bind -x '"\C-l": "clear ; date|lolcat"' &>/dev/null
+bind -x '"\C-l": "clear -x;date|lolcat"' 2>/dev/null
+bind '"kj": "\e"' 2>/dev/null
