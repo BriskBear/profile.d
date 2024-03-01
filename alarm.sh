@@ -1,4 +1,4 @@
-# Beep stuff with audio-drivers : 1699408440
+# Beep stuff with audio-drivers : 
 alarm() {
   ( speaker-test --frequency $1 --test sine )&
   pid=$!
