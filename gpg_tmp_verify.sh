@@ -8,7 +8,7 @@ function gpg_tmp_verify() {
    trap 'rm -rf "$tmp"' EXIT INT TERM HUP
    tmp=`mktemp -d`
    export GNUPGHOME="$tmp"
-   curl -#Lo $tmp/keys.asc https://github.com/${user:-`git config user.name`}.gpg
+   curl -#Lo $tmp/keys.asc https://github.com/${user:-`git config user.name`}.gpg && printf "\033[1A\033[2K"
    gpg --import $tmp/keys.asc 2>>$TMP/tmp-verify.log
    gpg --verify "$1" 2>&1|grep --color '^gpg: .\{3,4\} signature'
 
