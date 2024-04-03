@@ -1,4 +1,4 @@
-# Get / Convert Epoch time : 1689333700
+# Get / Convert Epoch time : 
 function epoch() {
   [[ $# == 1 ]] \
     && date --date=@$1 \

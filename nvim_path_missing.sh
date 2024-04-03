@@ -1,4 +1,4 @@
-# Create directories for the path and edit the file in nvim : 1689333723
+# Create directories for the path and edit the file in nvim : 
 function nvim-path-missing() {
   [[ -f "$1" ]] && return 1
   in="$1"

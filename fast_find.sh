@@ -1,4 +1,4 @@
-# Multithread your finds : 1676647821
+# Multithread your finds : 
 function fast-find() {
   list=($(ls -A /))
   query="$1"

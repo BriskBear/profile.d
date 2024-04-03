@@ -1,4 +1,4 @@
-# Manage Containers : 1699045122
+# Manage Containers : 
 
 function box() {
   if [[ ! -n $container ]] 

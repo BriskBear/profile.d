@@ -1,4 +1,4 @@
-# Call multi-threaded operations assuming % as replacment char : 1689333776
+# Call multi-threaded operations assuming % as replacment char : 
 function xargs-percent() {
   xargs -I % "${@}"
 }

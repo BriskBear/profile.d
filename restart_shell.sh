@@ -1,4 +1,4 @@
-# Reset readline and re-load profile : 1689333743
+# Reset readline and re-load profile : 
 function restart-shell() {
   reset
   source /etc/profile

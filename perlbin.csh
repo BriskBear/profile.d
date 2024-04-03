@@ -1,4 +1,4 @@
-# Set path to perl scriptdirs if they exist : 1689333725
+# Set path to perl scriptdirs if they exist : 
 # https://wiki.archlinux.org/index.php/Perl_Policy#Binaries_and_scripts
 # Added /usr/bin/*_perl dirs for scripts
 

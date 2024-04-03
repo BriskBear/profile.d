@@ -1,4 +1,4 @@
-# (re)start polybar : 1689333730
+# (re)start polybar : 
 function polybar-start() {
   [[ $(ps -ae|grep polybar) ]] && killall polybar
   polybar

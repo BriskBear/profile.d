@@ -1,4 +1,4 @@
-# GNU awk functions : 1689333709
+# GNU awk functions : 
 gawkpath_default () {
 	unset AWKPATH
 	export AWKPATH=`gawk 'BEGIN {print ENVIRON["AWKPATH"]}'`

@@ -1,4 +1,4 @@
-# Whereis returns your argument annoyingly, so this strips that for just an array of the results : 1689333771
+# Whereis returns your argument annoyingly, so this strips that for just an array of the results : 
 function whereis-usable() {
   grab=($( whereis $1 ))
 

@@ -1,4 +1,4 @@
-# Who can remember all of these conversion ratios anyway : 1689333718
+# Who can remember all of these conversion ratios anyway : 
 function celcius_to_fahrenheit() {
   echo "$1 * 9 / 5 + 32"|bc
 }

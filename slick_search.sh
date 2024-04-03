@@ -1,4 +1,4 @@
-# Quickly search the entire disk for a file : 1678891949
+# Quickly search the entire disk for a file : 
 slick_search() {
   [[ $1 ]] && srchstr="$1" || return 1
   ls /                                            |

@@ -1,4 +1,4 @@
-# Place the credentials file for the specified repository : 1690474990
+# Place the credentials file for the specified repository : 
 function unlock() {
   # Append rc to the name of the config file
   repo=$1rc

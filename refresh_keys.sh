@@ -1,4 +1,4 @@
-# Refresh the pacman-keyring : 1685573498
+# Refresh the pacman-keyring : 
 function refresh-keys() {
   sudo rm -rf /etc/pacman.d/gnupg
   dirmngr < /dev/null

@@ -1,4 +1,4 @@
-# Create a new persistent alias : 1689333720
+# Create a new persistent alias : 
 function new-alias() {
   action="$2"
   description="$3"

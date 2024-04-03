@@ -1,4 +1,4 @@
-# If a directory exists list contents and pushd there : 1687876959
+# If a directory exists list contents and pushd there : 
 function ls_pushd() {
   children=($(ls $@))
   [[ -z $children ]] || pushd ${@: -1}
