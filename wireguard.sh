@@ -40,3 +40,4 @@ function reset-net() {
 
 alias ipg='ip-global'
 alias wifi='connect-wireless'
+alias wiscan='iwctl station wlan0 scan ; iwctl station wlan0 get-networks'
