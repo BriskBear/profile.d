@@ -1,6 +1,5 @@
 # Global Environment : 
 ## Default Tools
-export ASDF_DIR=/opt/asdf
 export EDITOR=/usr/bin/nvim
 export PAGER=/usr/bin/bat
 
