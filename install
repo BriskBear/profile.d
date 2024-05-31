@@ -18,7 +18,7 @@ case "$DISTRO" in
     ;;
   debian|ubuntu)
     export UPDATE="$sudo apt update"
-    export PKGMGR="$sudo apt install -y"
+    export INSTALL="$sudo apt install -y"
     ;;
   *)
     echo "$DISTRO not yet supported"
@@ -27,7 +27,7 @@ case "$DISTRO" in
 esac
 
 $UPDATE
-echo "$PKGMGR ${DEPS[@]}"
+"$INSTALL ${DEPS[@]}"
 
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d}
