@@ -5,24 +5,24 @@ DEPS=( git gnupg openssh )
 XP=$HOME/.local/etc/profile.d
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 
+# Use sudo to install dependencies unless already root
+[[ $UID == 0 ]]           \
+  && ( export sudo= )     \
+  || ( export sudo='sudo' )
+
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    PKGMGR="pacman -S --noconfirm"
+    PKGMGR="$sudo pacman -Sy ; $sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    PKGMGR="apt install -i"
+    PKGMGR="$sudo apt update ; $sudo apt install -i"
     ;;
   *)
     echo "$DISTRO not yet supported"
     return 1
     ;;
 esac
-
-# Use sudo to install dependencies unless already root
-[[ $UID == 0 ]]                \
-  && ( $PKGMGR ${DEPS[@]} )    \
-  || ( sudo $PKGMGR ${DEPS[@]} )
 
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d}
