@@ -20,7 +20,7 @@ case "$DISTRO" in
     ;;
   *)
     echo "$DISTRO not yet supported"
-    return 1
+    exit 1
     ;;
 esac
 
