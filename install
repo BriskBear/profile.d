@@ -33,7 +33,7 @@ $INSTALL ${DEPS[@]}
 mkdir -vp $HOME/.local/{bin,etc/profile.d}
 
 # Download profile.d
-git clone https://github.com/briskbear/profile.d $XP 2>/tmp/profile.d.log || exit 1
+git clone https://github.com/briskbear/profile.d $XP --branch dev 2>/tmp/profile.d.log || exit 1
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
