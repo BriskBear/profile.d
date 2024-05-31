@@ -4,8 +4,8 @@ export EDITOR=/usr/bin/nvim
 export PAGER=/usr/bin/bat
 
 ## XDG Config
-export XDG_CONFIG_HOME=/etc/xdg
-export XDG_CONFIG_PROFILE=/etc/profile.d
+export XDG_CONFIG_HOME=$HOME/.local/etc/xdg
+export XDG_CONFIG_PROFILE=$HOME/.local/etc/profile.d
 
 ## XDG Shortcuts
 export XH=$XDG_CONFIG_HOME

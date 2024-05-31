@@ -13,7 +13,6 @@ alias nf='$EDITOR $XP/'
 alias pd='pushd'
 alias q='exit'
 alias rm='rm -v'
-alias rs='reset ; printf "\033[1B\033[38;5;30m\e[3m    # Shell Reloaded \e[0m\033[0m\033[22D\033[2A" ; source /etc/profile' # Reload the profile efficiently
 alias rsync='rsync -ahAX --info=progress2'
 alias sv='sudo -i $EDITOR' # Edit as root with config
 alias tal='eza -F -aglTL'
