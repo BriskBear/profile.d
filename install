@@ -12,12 +12,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    export DEPS=( git gnupg openssh )
+    export DEPS=( bat eza git gnupg openssh the_silver_searcher )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    export DEPS=( git gnupg ssh )
+    export DEPS=( bat exa git gnupg silversearcher-ag ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
