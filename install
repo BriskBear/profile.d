@@ -24,6 +24,8 @@ case "$DISTRO" in
     ;;
 esac
 
+$PKGMGR "${DEPS[@]}"
+
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d}
 
