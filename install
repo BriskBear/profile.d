@@ -27,7 +27,7 @@ case "$DISTRO" in
 esac
 
 $UPDATE
-"$INSTALL ${DEPS[@]}"
+$INSTALL ${DEPS[@]}
 
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d}
