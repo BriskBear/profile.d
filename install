@@ -1,16 +1,35 @@
 #!/bin/bash
 
-src=$(dirname $(realpath $0))
-[[ $(which rsync) ]] || ( sudo pacman -Sy --noconfirm rsync )
+# Simple list of dependencies, find the locally-installed distribution
+DEPS=( git gnupg openssh )
+XP=$HOME/.local/etc/profile.d
+DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 
-echo $src
-sudo rsync -aAX --info=progress2 \
-  --exclude=profile --exclude=bash.bashrc --exclude=install --exclude=C --exclude=cfg_nvim \
-  $src/ /etc/profile.d/
+# Assign the correct package-manager command
+case "$DISTRO" in
+  arch)
+    PKGMGR="pacman -S --noconfirm"
+    ;;
+  debian|ubuntu)
+    PKGMGR="apt install -i"
+    ;;
+  *)
+    echo "$DISTRO not yet supported"
+    return 1
+    ;;
+esac
 
-sudo cp -f $src/profile /etc/
-sudo cp -f $src/bash.bashrc /etc/
-sudo cp -f $src/C/* /usr/local/bin/
-sudo cp -r $src/cfg_nvim /etc/xdg/nvim
+# Use sudo to install dependencies unless already root
+[[ $UID == 0 ]]                \
+  && ( $PKGMGR ${DEPS[@]} )    \
+  || ( sudo $PKGMGR ${DEPS[@]} )
 
-sed -i 's/PS1=.*//g' ~/.bashrc
+# Create the user-directories for installing profile.d
+mkdir -vp $HOME/.local/{bin,etc/profile.d}
+
+# Download profile.d
+git clone https://github.com/briskbear/profile.d $XP 2>/tmp/profile.d.log || return 1
+
+# backup and copy .profile
+mv $HOME/.profile $XP/profile.bak 2>/dev/null
+cp $XP/profile $HOME/.profile     # TODO: simplify profile !!
