@@ -27,7 +27,7 @@ case "$DISTRO" in
 esac
 
 $UPDATE
-$PKGMGR "${DEPS[@]}"
+$PKGMGR ${DEPS[@]}
 
 exit 0
 # Create the user-directories for installing profile.d
