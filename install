@@ -13,12 +13,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    UPDATE="$sudo pacman -Sy"
-    INSTALL="$sudo pacman -S --noconfirm"
+    export UPDATE="$sudo pacman -Sy"
+    export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    UPDATE="$sudo apt update"
-    PKGMGR="$sudo apt install -i"
+    export UPDATE="$sudo apt update"
+    export PKGMGR="$sudo apt install -y"
     ;;
   *)
     echo "$DISTRO not yet supported"
