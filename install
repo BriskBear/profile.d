@@ -32,4 +32,4 @@ git clone https://github.com/briskbear/profile.d $XP 2>/tmp/profile.d.log || ret
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
-cp $XP/profile $HOME/.profile     # TODO: simplify profile !!
+cp $XP/profile $HOME/.profile
