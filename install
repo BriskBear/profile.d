@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Simple list of dependencies, find the locally-installed distribution
-DEPS=( git gnupg openssh )
 XP=$HOME/.local/etc/profile.d
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 
@@ -13,10 +12,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
+    export DEPS=( git gnupg openssh )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
+    export DEPS=( git gnupg ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
