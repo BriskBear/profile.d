@@ -13,10 +13,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    PKGMGR="$sudo pacman -Sy ; $sudo pacman -S --noconfirm"
+    UPDATE="$sudo pacman -Sy"
+    INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    PKGMGR="$sudo apt update ; $sudo apt install -i"
+    UPDATE="$sudo apt update"
+    PKGMGR="$sudo apt install -i"
     ;;
   *)
     echo "$DISTRO not yet supported"
@@ -24,9 +26,8 @@ case "$DISTRO" in
     ;;
 esac
 
-echo "before packages"
+$UPDATE
 $PKGMGR "${DEPS[@]}"
-echo "after packages"
 
 exit 0
 # Create the user-directories for installing profile.d
