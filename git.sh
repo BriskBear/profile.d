@@ -1,5 +1,4 @@
 # Git shortcuts large and small : 
-source /etc/profile.d/git-sh-prompt
 
 function git-add-commit() {
   [[ $# -gt 0 ]] || return 1

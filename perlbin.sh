@@ -2,6 +2,16 @@
 # https://wiki.archlinux.org/index.php/Perl_Policy#Binaries_and_scripts
 # Added /usr/bin/*_perl dirs for scripts
 
+# This function API is accessible to scripts in /etc/profile.d
+append_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
+    esac
+}
+
 [ -d /usr/bin/site_perl ] && append_path '/usr/bin/site_perl'
 
 [ -d /usr/bin/vendor_perl ] && append_path '/usr/bin/vendor_perl'

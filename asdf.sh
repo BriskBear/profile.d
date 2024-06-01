@@ -1,8 +1,8 @@
 # Source essential asdf functions : 
 export ASDF_DIR=/opt/asdf
 export ASDF_CONCURRENCY=5
-. /opt/asdf/asdf.sh
-. /opt/asdf/completions/asdf.bash
+. $ASDF_DIR/asdf.sh
+. $ASDF_DIR/completions/asdf.bash
 [[ -d ${XDG_CONFIG_HOME}/asdf-direnv ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
 
 function asdf_install_latest() {

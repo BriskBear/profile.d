@@ -1,3 +1,4 @@
+# Use vim keys for line-editing : 
 set -o vi
 set editing-mode vi
 set keymap vi
