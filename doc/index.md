@@ -1,6 +1,6 @@
 # Index of Shortcuts  
 
-[01reply.sh](01reply.sh)  
+[01reply.sh](01reply.md)  
 [alarm.sh](alarm.md)  
 [aliases.sh](aliases.md)  
 [asdf.sh](asdf.md)  
