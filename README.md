@@ -8,5 +8,8 @@ __Dependencies:__
   - `curl`  
 
 # Install: 
-`curl -#L https://github.com/BriskBear/profile.d/raw/dev/install|bash`  
+`curl -#L https://github.com/BriskBear/profile.d/raw/release/install|bash`  
+`. ~/.profile`  
 
+## Documentation:
+Checkout the profile [index](./doc/index.md)  
