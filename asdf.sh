@@ -1,5 +1,5 @@
 # Source essential asdf functions : 
-export ASDF_DIR=/opt/asdf
+export ASDF_DIR=$HOME/.local/opt/asdf
 export ASDF_CONCURRENCY=5
 . $ASDF_DIR/asdf.sh
 . $ASDF_DIR/completions/asdf.bash
