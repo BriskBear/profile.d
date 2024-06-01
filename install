@@ -40,7 +40,7 @@ git clone https://github.com/briskbear/profile.d $XP --branch dev 2>/tmp/profile
 # AutoTrust
 for profile in `ls $XP/*.sh`
 do
-  sed -ie "s/ : $/ : `date -u +%s`/g" "$profile"
+  sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
 done
 
 # CopyBins
