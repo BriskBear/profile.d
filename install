@@ -12,12 +12,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    export DEPS=( bat eza git gnupg openssh the_silver_searcher )
+    export DEPS=( bat eza git gnupg neovim openssh the_silver_searcher )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    export DEPS=( bat exa git gnupg silversearcher-ag ssh )
+    export DEPS=( bat exa git gnupg neovim silversearcher-ag ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
@@ -35,6 +35,15 @@ mkdir -vp $HOME/.local/{bin,etc/profile.d}
 
 # Download profile.d
 git clone https://github.com/briskbear/profile.d $XP --branch dev 2>/tmp/profile.d.log || exit 1
+
+# AutoTrust
+for profile in `ls $XP/*.sh`
+do
+  sed -ie "s/ : $/ : `date -u +%s`/g" "$profile"
+done
+
+# CopyBins
+cp $XP/C/{errname,glyph,lolcat} ~/.local/bin/
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
