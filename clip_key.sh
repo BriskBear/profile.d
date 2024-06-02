@@ -18,10 +18,8 @@ function lock_key() {
   if [ $# -ne 1 ]
   then
     reply -e 'Requires output file name'
-    return 1
-    exit 1
   fi
-  cred_dir=$HOME/.config/.cred
+  cred_dir=$HOME/.local/etc/.cred
   by_signingKey=$(git config --global user.signingkey)
   default_key=$(gpg -K --keyid-format=long|ag -B1 $by_signingKey|head -n1|awk -F'\\(|\\)' '{print $2}')
 

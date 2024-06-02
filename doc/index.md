@@ -6,7 +6,6 @@
 [asdf.sh](asdf.md)  
 [aurl.sh](aurl.md)  
 [bash.bashrc](bash.bashrc)  
-[buffer.sh](buffer.md)  
 [cleanup_disk.sh](cleanup_disk.md)  
 [clip_key.sh](clip_key.md)  
 [color_sample.sh](color_sample.md)  
