@@ -5,7 +5,7 @@ _Color-code message-levels_
 
 # Usage  
 ```
-reply [-c|e|i|w] [message]
+reply [-c|e|i|w] [message] [error-code]
 
 -c  Clear the line before printing(INFO)
 -e  Print red message and quit the function here
