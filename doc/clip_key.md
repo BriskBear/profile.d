@@ -1,4 +1,4 @@
-# clip_key  
+# clip_key.sh  
 _Store passwords encrypted_  
 
 ---  
