@@ -12,12 +12,12 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch)
-    export DEPS=( bat eza git gnupg neovim openssh the_silver_searcher )
+    export DEPS=( bat bc eza git gnupg neovim openssh the_silver_searcher )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    export DEPS=( bat exa git gnupg neovim silversearcher-ag ssh )
+    export DEPS=( bat bc exa git gnupg neovim silversearcher-ag ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
