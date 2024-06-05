@@ -11,7 +11,7 @@ DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
 
 # Assign the correct package-manager command
 case "$DISTRO" in
-  arch)
+  arch|archarm)
     export DEPS=( bat bc eza git gnupg neovim openssh the_silver_searcher )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
