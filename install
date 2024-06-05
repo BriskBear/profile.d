@@ -2,7 +2,7 @@
 
 # Simple list of dependencies, find the locally-installed distribution
 XP=$HOME/.local/etc/profile.d
-DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID'|sed -e 's/ID=//g'`
+DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
 
 # Use sudo to install dependencies unless already root
 [[ $UID == 0 ]]           \
