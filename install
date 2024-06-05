@@ -35,7 +35,7 @@ mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
 
 # Download profile.d
 git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf
-git clone https://github.com/briskbear/profile.d $XP --branch dev 2>/tmp/profile.d.log || exit 1
+git clone https://github.com/briskbear/profile.d $XP 2>/tmp/profile.d.log || exit 1
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
