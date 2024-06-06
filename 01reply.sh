@@ -29,7 +29,7 @@ function reply() {
     -c|--clear)
         code=0
         color='\e[1A\e[0K\033[1;36m'
-        memo="INFO: $word"
+        memo="$word"
       ;;
     *)
         code=0
