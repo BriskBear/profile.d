@@ -1,5 +1,19 @@
 #!/bin/bash
 
+
+function rclear() {
+  echo -ne "\033[0K$1"
+}
+
+function out-percent() {
+  lines=`wc /tmp/profile_install.log|awk '{print $1}'`
+  echo "scale = 4 ; $lines / 180 * 100"|bc|awk -F'\.' '{print $1}' 2>/dev/null
+}
+
+exec 3>&1
+trap 'exec 3>&1 4>&2' 0 1 2 3
+exec 1>>/tmp/profile_install.log
+
 # Simple list of dependencies, find the locally-installed distribution
 XP=$HOME/.local/etc/profile.d
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
@@ -27,15 +41,23 @@ case "$DISTRO" in
     ;;
 esac
 
+rclear '10%' >&3
 $UPDATE
-$INSTALL ${DEPS[@]}
+rclear '13%' >&3
+$INSTALL ${DEPS[@]} 2>>/tmp/profile_install.log
+
+while [[ $(out-percent) -lt 100 ]]
+do
+  rclear "`out-percent`%" >&3
+  sleep 0.1
+done & 
 
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
 
 # Download profile.d
-git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf
-git clone https://github.com/briskbear/profile.d $XP 2>/tmp/profile.d.log || exit 1
+git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>/tmp/profile_install.log
+git clone https://github.com/briskbear/profile.d $XP 2>>/tmp/profile_install.log || exit 1
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
@@ -44,8 +66,10 @@ do
 done
 
 # CopyBins
-cp $XP/C/{errname,glyph,lolcat} ~/.local/bin/
+cp -v $XP/C/{errname,glyph,lolcat} ~/.local/bin/ >> /tmp/profile_install.log
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
-cp $XP/profile $HOME/.profile
+ln -s $XP/profile $HOME/.profile
+echo 'DONE!' >> /tmp/profile_install.log
+rclear '100%\n'
