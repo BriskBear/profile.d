@@ -16,7 +16,7 @@ exec 3>&1
 trap 'exec 3>&1 4>&2' 0 1 2 3
 exec 1>>$log
 
-ARCH=`uname -a|awk '{print $($NF - 1)}'`
+ARCH=`uname -a|awk '{print $(NF - 1)}'`
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
 XP=$HOME/.local/etc/profile.d
 
