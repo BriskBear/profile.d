@@ -1,22 +1,24 @@
 #!/bin/bash
 
+# Declare logging
+log=/tmp/profile_install.log
 
 function rclear() {
   echo -ne "\033[0K$1"
 }
 
 function out-percent() {
-  lines=`wc /tmp/profile_install.log|awk '{print $1}'`
+  lines=`wc $log|awk '{print $1}'`
   echo "scale = 4 ; $lines / 180 * 100"|bc|awk -F'\.' '{print $1}' 2>/dev/null
 }
 
 exec 3>&1
 trap 'exec 3>&1 4>&2' 0 1 2 3
-exec 1>>/tmp/profile_install.log
+exec 1>>$log
 
-# Simple list of dependencies, find the locally-installed distribution
-XP=$HOME/.local/etc/profile.d
+ARCH=`uname -a|awk '{print $($NF - 1)}'`
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
+XP=$HOME/.local/etc/profile.d
 
 # Use sudo to install dependencies unless already root
 [[ $UID == 0 ]]           \
@@ -31,7 +33,7 @@ case "$DISTRO" in
     export INSTALL="$sudo pacman -S --noconfirm"
     ;;
   debian|ubuntu)
-    export DEPS=( bat bc exa git gnupg neovim silversearcher-ag ssh )
+    export DEPS=( bat bc bzip2 exa git gnupg neovim silversearcher-ag ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
@@ -44,8 +46,9 @@ esac
 rclear '10%' >&3
 $UPDATE
 rclear '13%' >&3
-$INSTALL ${DEPS[@]} 2>>/tmp/profile_install.log
+$INSTALL ${DEPS[@]} 2>>$log
 
+# Display Progress
 while [[ $(out-percent) -lt 100 ]]
 do
   rclear "`out-percent`%" >&3
@@ -55,9 +58,23 @@ done &
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
 
+# Unzip the binaries and put them on the path
+case "$ARCH" in
+  x86_64)
+    tar -xf $XP/C/x86_64.tbz2 -C ~/.local/bin 2>$log
+    ;;
+  arm64|aarch64)
+    tar -xf $XP/C/arm64.tbz2 -C ~/.local/bin 2>$log
+    ;;
+  *)
+    echo -e "\033[38;5;30mArchitecture not supported, compile errname, glyph from github.com/briskbear/psc and lolcat from github.com/n-ham/lolcat-cc.\033[0m"
+    ;;
+esac
+
+
 # Download profile.d
-git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>/tmp/profile_install.log
-git clone https://github.com/briskbear/profile.d $XP 2>>/tmp/profile_install.log || exit 1
+git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
+git clone https://github.com/briskbear/profile.d $XP 2>>$log || exit 1
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
@@ -65,11 +82,8 @@ do
   sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
 done
 
-# CopyBins
-cp -v $XP/C/{errname,glyph,lolcat} ~/.local/bin/ >> /tmp/profile_install.log
-
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
 ln -s $XP/profile $HOME/.profile
-echo 'DONE!' >> /tmp/profile_install.log
+echo 'DONE!' >> $log
 rclear '100%\n'
