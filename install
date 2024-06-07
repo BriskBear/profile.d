@@ -74,7 +74,7 @@ esac
 
 # Download profile.d
 git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
-git clone https://github.com/briskbear/profile.d $XP 2>>$log || exit 1
+git clone https://github.com/briskbear/profile.d --branch dev $XP 2>>$log || exit 1
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
