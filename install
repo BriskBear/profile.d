@@ -43,17 +43,17 @@ case "$DISTRO" in
     ;;
 esac
 
-rclear '10%' >&3
-$UPDATE
-rclear '13%' >&3
+# rclear '10%' >&3
+$UPDATE &>>$log
+# rclear '13%' >&3
 $INSTALL ${DEPS[@]} 2>>$log
 
-# Display Progress
-while [[ $(out-percent) -lt 100 ]]
-do
-  rclear "`out-percent`%" >&3
-  sleep 0.1
-done & 
+# Display Progress # TODO Come back to this...
+# while [[ $(out-percent) -lt 100 ]]
+# do
+#   rclear "`out-percent`%" >&3
+#   sleep 0.1
+# done & 
 
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
