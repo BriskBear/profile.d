@@ -82,8 +82,12 @@ do
   sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
 done
 
+# Extract appropriate binaries
+tar -xf $XP/C/${ARCH}.tbz2 -C ~/.local/bin
+
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
 ln -s $XP/profile $HOME/.profile
-echo 'DONE!' >> $log
-rclear '100%\n'
+
+echo 'DONE!' | tee -a $log
+# rclear '100%\n'
