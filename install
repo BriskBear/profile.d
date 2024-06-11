@@ -56,25 +56,12 @@ $INSTALL ${DEPS[@]} 2>>$log
 # done & 
 
 # Create the user-directories for installing profile.d
-mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
-
-# Unzip the binaries and put them on the path
-case "$ARCH" in
-  x86_64)
-    tar -xf $XP/C/x86_64.tbz2 -C ~/.local/bin 2>$log
-    ;;
-  arm64|aarch64)
-    tar -xf $XP/C/arm64.tbz2 -C ~/.local/bin 2>$log
-    ;;
-  *)
-    echo -e "\033[38;5;30mArchitecture not supported, compile errname, glyph from github.com/briskbear/psc and lolcat from github.com/n-ham/lolcat-cc.\033[0m"
-    ;;
-esac
-
+mkdir -vp $HOME/.local/{bin,etc/profile.d,opt,xdg}
 
 # Download profile.d
 git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
 git clone https://github.com/briskbear/profile.d --branch dev $XP 2>>$log || exit 1
+git clone https://github.com/deftclaw/nvim $XP/xdg/nvim 2>>$log
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
