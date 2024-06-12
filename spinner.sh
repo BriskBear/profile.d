@@ -4,13 +4,12 @@ function spinner() {
   $@ &>> /tmp/spinner.log &
   pid=$!
 
+  idx=0
   while [ -d /proc/$pid ]
   do
-    for s in ${sym[@]}
-    do
-      echo -e "\033[1A\033[0K $s"
-      sleep 0.3
-    done
+    echo -e "\033[0A\033[0K ${sym[$idx]}"
+    sleep 0.3
+    idx=$((($idx + 1) % 3 ))
   done
-  echo -e "\033[2A\033[0K\nDONE!"
+  echo -ne "\033[1A\033[0K\033[1A\033[0K"
 }
