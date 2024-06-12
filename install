@@ -72,7 +72,7 @@ spinner $INSTALL ${DEPS[@]}
 # done & 
 
 # Create the user-directories for installing profile.d
-mkdir -vp $HOME/.local/{bin,etc/profile.d,opt,xdg}
+mkdir -vp $HOME/.local/{bin,etc/profile.d,opt,share,xdg}
 
 # Download profile.d
 git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
@@ -87,6 +87,10 @@ done
 
 # Extract appropriate binaries
 tar -xf $XP/C/${ARCH}.tbz2 -C ~/.local/bin
+
+# Suppliment Neovim runtimes
+tar -xf $XP/C/nvim_runtime.tbz2 -C ~/.local/share
+ln -s ~/.local/share/nvim /usr/local/share/nvim
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
