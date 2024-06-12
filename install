@@ -3,6 +3,22 @@
 # Declare logging
 log=/tmp/profile_install.log
 
+function spinner() {
+  sym=( '|' '/' '-' '\' )
+  $@ &>> /tmp/spinner.log &
+  pid=$!
+
+  while [ -d /proc/$pid ]
+  do
+    for s in ${sym[@]}
+    do
+      echo -e "\033[1A\033[0K $s"
+      sleep 0.3
+    done
+  done
+  echo -e "\033[2A\033[0K\nDONE!"
+}
+
 function rclear() {
   echo -ne "\033[0K$1"
 }
@@ -45,9 +61,9 @@ case "$DISTRO" in
 esac
 
 # rclear '10%' >&3
-$UPDATE &>>$log
+spinner $UPDATE
 # rclear '13%' >&3
-$INSTALL ${DEPS[@]} 2>>$log
+spinner $INSTALL ${DEPS[@]}
 
 # Display Progress # TODO Come back to this...
 # while [[ $(out-percent) -lt 100 ]]
