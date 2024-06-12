@@ -96,5 +96,5 @@ ln -s ~/.local/share/nvim /usr/local/share/nvim
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
 ln -s $XP/profile $HOME/.profile
 
+echo '[[ $- =~ 'i' ]] && [[ -f $HOME/.profile ]] && . ~/.profile' > $HOME/.bashrc
 echo 'DONE!' | tee -a $log
-# rclear '100%\n'
