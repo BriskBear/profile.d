@@ -1,7 +1,7 @@
 # Global Environment : 
 ## Default Tools
 export EDITOR=/usr/bin/nvim
-export PAGER=/usr/bin/bat
+export PAGER=/usr/bin/cat
 
 ## XDG Config
 export XDG_CONFIG_HOME=$HOME/.local/etc/xdg

@@ -29,12 +29,14 @@ XP=$HOME/.local/etc/profile.d
 # Assign the correct package-manager command
 case "$DISTRO" in
   arch|archarm)
-    export DEPS=( bat bc eza git gnupg neovim openssh the_silver_searcher )
+    export DEPS=( bat bc eza git gnupg openssh the_silver_searcher )
     export UPDATE="$sudo pacman -Sy"
     export INSTALL="$sudo pacman -S --noconfirm"
+    mv `which cat` /usr/bin/cat.bak
+    ln -s /usr/bin/bat /usr/bin/cat
     ;;
   debian|ubuntu)
-    export DEPS=( bat bc bzip2 exa git gnupg neovim silversearcher-ag ssh )
+    export DEPS=( bc bzip2 exa git gnupg silversearcher-ag ssh )
     export UPDATE="$sudo apt update"
     export INSTALL="$sudo apt install -y"
     ;;
