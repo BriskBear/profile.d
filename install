@@ -79,7 +79,7 @@ GIT_CURL_VERBOSE=1
 
 # Download profile.d
 spinner git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
-spinner git clone https://github.com/briskbear/profile.d --branch dev --depth 1 $XP 2>>$log || exit 1
+spinner git clone https://github.com/briskbear/profile.d --depth 1 $XP 2>>$log || exit 1
 
 # Clear trace config
 unset GIT_TRACE_PACKET GIT_TRACE GIT_CURL_VERBOSE
