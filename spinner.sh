@@ -1,4 +1,4 @@
-# Just a spinner to indicate activity : 1718251167
+# Just a spinner to indicate activity : 
 function spinner() {
   sym=( '|' '/' '-' '\' )
   $@ &>> /tmp/spinner.log &
