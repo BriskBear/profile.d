@@ -87,11 +87,11 @@ unset GIT_TRACE_PACKET GIT_TRACE GIT_CURL_VERBOSE
 # AutoTrust
 for profile in `ls $XP/*.sh`
 do
-  sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
+  spinner sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
 done
 
 # Extract appropriate binaries
-tar -xf $XP/C/${ARCH}.tbz2 -C ~/.local/bin
+spinner tar -xf $XP/C/${ARCH}.tbz2 -C ~/.local/bin
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
