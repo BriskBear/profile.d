@@ -11,11 +11,11 @@ function spinner() {
   idx=0
   while [ -d /proc/$pid ]
   do
-    echo -e "\033[0A\033[0K ${sym[$idx]}"
+    echo -ne " ${sym[$idx]}"
     sleep 0.3
     idx=$((($idx + 1) % 3 ))
+    echo -ne "\033[2D"
   done
-  echo -ne "\033[1A\033[0K\033[1A\033[0K"
 }
 
 function rclear() {
@@ -59,9 +59,7 @@ case "$DISTRO" in
     ;;
 esac
 
-# rclear '10%' >&3
 spinner $UPDATE
-# rclear '13%' >&3
 spinner $INSTALL ${DEPS[@]}
 
 # Display Progress # TODO Come back to this...
