@@ -1,4 +1,4 @@
-# Just a spinner to indicate activity : 
+# Just a spinner to indicate activity : 1718251167
 function spinner() {
   sym=( '|' '/' '-' '\' )
   $@ &>> /tmp/spinner.log &
@@ -7,9 +7,9 @@ function spinner() {
   idx=0
   while [ -d /proc/$pid ]
   do
-    echo -e "\033[0A\033[0K ${sym[$idx]}"
+    echo -ne " ${sym[$idx]}"
     sleep 0.3
     idx=$((($idx + 1) % 3 ))
+    echo -ne "\033[2D"
   done
-  echo -ne "\033[1A\033[0K\033[1A\033[0K"
 }
