@@ -72,9 +72,17 @@ spinner $INSTALL ${DEPS[@]}
 # Create the user-directories for installing profile.d
 mkdir -vp $HOME/.local/{bin,etc/profile.d,opt,xdg}
 
+# Prevent spinner from interrupting git
+GIT_TRACE_PACKET=1
+GIT_TRACE=1
+GIT_CURL_VERBOSE=1
+
 # Download profile.d
 git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
 git clone https://github.com/briskbear/profile.d --branch dev $XP 2>>$log || exit 1
+
+# Clear trace config
+unset GIT_TRACE_PACKET GIT_TRACE GIT_CURL_VERBOSE
 
 # AutoTrust
 for profile in `ls $XP/*.sh`
