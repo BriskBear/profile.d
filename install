@@ -85,9 +85,9 @@ git clone https://github.com/briskbear/profile.d --branch dev --depth 1 $XP 2>>$
 unset GIT_TRACE_PACKET GIT_TRACE GIT_CURL_VERBOSE
 
 # AutoTrust
-for profile in `ls $XP/*.sh`
+spinner for profile in `ls $XP/*.sh`
 do
-  spinner sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
+  sed -i -e "s/ : $/ : `date -u +%s`/g" "$profile"
 done
 
 # Extract appropriate binaries
