@@ -37,9 +37,9 @@ XH=$HOME/.local/etc/xdg
 XP=$HOME/.local/etc/profile.d
 
 # Use sudo to install dependencies unless already root
-[[ $UID == 0 ]]           \
-  && ( export sudo= )     \
-  || ( export sudo='sudo' )
+[[ $UID == 0 ]]       \
+  && export sudo=     \
+  || export sudo='sudo'
 
 # Assign the correct package-manager command
 case "$DISTRO" in
