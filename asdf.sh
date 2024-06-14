@@ -6,6 +6,9 @@ export ASDF_CONCURRENCY=5
 [[ -d ${XDG_CONFIG_HOME}/asdf-direnv ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
 
 function asdf_install_latest() {
+   [[ -z $plugin ]] \
+     && echo -e 'Please specify a plugin: asdf_install_latest <plugin>' \
+     && return 1
   [[ $(asdf plugin list|grep $1) ]] || asdf plugin-add $1
   last=$(asdf list-all $1|grep -x '[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+'|tail -n1)
   asdf install $1 $last
