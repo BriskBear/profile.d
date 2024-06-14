@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+## Environment
+wrk=`mktemp -d`
+
+# . $HOME/.local/etc/profile.d/spinner.sh
+
+asdf 2>/dev/null && export ASDF=1 || unset ASDF
+bzip2 || [[ $? -eq 127 ]] && apt install -y bzip2
+curl  || [[ $? -eq 127 ]] && apt install -y curl
+git   || [[ $? -eq 127 ]] && apt install -y git
+xz    || [[ $? -eq 127 ]] && apt install -y xz-utils
+3>&3
+2>&2
+1>&1
+
+if [[ -n ASDF ]]
+then
+  asdf_install_latest 
+  if [[ $? -eq 1 ]]
+  then
+    asdf_install_latest zig
+  else 
+    export iZIG=1
+  fi
+fi
+
+pushd $wrk
+  if [[ -n $iZIG ]]
+  then
+    curl -#Lo zig.xz https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz
+    tar -xvf zig.xz -C /usr/bin zig-linux-x86_64-0.13.0/zig --strip-components=1
+  fi
+  git clone https://github.com/deftclaw/nvim --depth 1
+  pushd nvim
+    . ./install
+  popd
+popd
+
+unset ASDF iZIG
