@@ -1,7 +1,7 @@
 # Global Environment : 
 ## Default Tools
 export EDITOR=/usr/bin/nvim
-export PAGER=bat
+export PAGER=cat
 
 ## History
 export HISTSIZE=10000
