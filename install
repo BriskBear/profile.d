@@ -33,7 +33,7 @@ exec 1>>$log
 
 ARCH=`uname -a|awk '{print $(NF - 1)}'`
 DISTRO=`cat /etc/*{release,version} 2>/dev/null|grep '^ID='|sed -e 's/ID=//g'`
-XH=$HOME/.local/etc/xdg
+XH=$HOME/.local/etc
 XP=$HOME/.local/etc/profile.d
 
 # Use sudo to install dependencies unless already root
@@ -70,7 +70,7 @@ spinner $INSTALL ${DEPS[@]}
 # done & 
 
 # Create the user-directories for installing profile.d
-mkdir -vp $HOME/.local/{bin,etc/profile.d,opt,xdg}
+mkdir -vp $HOME/.local/{bin,etc/profile.d,opt}
 
 # Prevent spinner from interrupting git
 GIT_TRACE_PACKET=1
