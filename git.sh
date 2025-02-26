@@ -1,5 +1,4 @@
 # Git shortcuts large and small : 
-
 function git-add-commit() {
   [[ $# -gt 0 ]] || return 1
 
@@ -8,6 +7,12 @@ function git-add-commit() {
   read
   git add $@
   git commit -S -m "$REPLY" 
+}
+
+function git-assume-unchanged() {
+  [ -r "$1" ] || reply -e "No such file $1"
+
+  git update-index --assume-unchanged "$1"
 }
 
 function git-clone-all() {
@@ -57,6 +62,13 @@ function git-init() {
   read -p 'Remote Origin URL: ' && git remote add origin $REPLY && git push -u origin master
 }
 
+function git-no-assume-unchanged() {
+  untracked=(`git ls-files -v|ag -s '^h'|awk '{print $2}'`)
+  [[ ${untracked[@]} =~ "$1" ]] || reply -e "$1 is already 'Not assume-unchanged'"
+
+  git update-index --no-assume-unchanged "$2"
+}
+
 function git-push-full() {
   og=$(echo $1|sed 's/gitlab-old://g')
   repo=$(echo $og|awk -F '/' '{print $NF}')
@@ -85,9 +97,15 @@ function git-us-remote() {
   popd
 }
 
+export MICROSTRAIN=gitlab:structural/motion-monitoring
+export POWER_SHELL=gitlab:admin_tools/PowerShell
+export MM=$MICROSTRAIN
+export PS=$POWER_SHELL
+
 alias GAC='git-add-commit'
 alias GP='git push'
 alias ga='git add'
+alias gau='git-assume-unchanged'
 alias gb='git branch'
 alias gbr='git branch -r'
 alias gc='git commit -S -m'
@@ -99,6 +117,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gits='git status -sb'
 alias gl='git log'
+alias gnau='git-no-assume-unchanged'
 alias gp='git pull'
 alias gpf='git-push-full'
 alias gra='git remote add'
