@@ -80,6 +80,17 @@ function git-push-full() {
   popd
 }
 
+function git-signing-key() {
+  export GH=''  # The unique name/comment/id of the key for GitHub
+  
+  gpg --keyid-format=long -k $GH |
+    ag '/'                       |
+    awk -F'/' '{print $NF}'      |
+    awk '{print $1}'             |
+    tee /dev/stderr              |
+    xclip -sel clip
+}  # Store GitHub signing key in clipboard (and terminal)
+
 function git-status-brief() {
   printf "${CYAN} Pulled at: ${NC}"
   stat -c %y .git/FETCH_HEAD
@@ -97,8 +108,6 @@ function git-us-remote() {
   popd
 }
 
-export MICROSTRAIN=gitlab:structural/motion-monitoring
-export POWER_SHELL=gitlab:admin_tools/PowerShell
 export MM=$MICROSTRAIN
 export PS=$POWER_SHELL
 
@@ -124,5 +133,7 @@ alias gra='git remote add'
 alias grr='git remote remove'
 alias grv='git remote -v'
 alias gs='git show'
+alias gsk='git-signing-key'
 alias gst='git stash'
+alias gsw='git switch'
 alias gur='git-us-remote'
