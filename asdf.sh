@@ -1,5 +1,5 @@
 # Source essential asdf functions : 
-export ASDF_DATA_DIR="$HOME/.local/share/asdf"
+export ASDF_DATA_DIR="/usr/share/asdf"
 
 [[ $PATH =~ $ASDF_DATA_DIR/shims ]] || export PATH=$PATH:$ASDF_DATA_DIR/shims
 
