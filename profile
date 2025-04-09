@@ -10,6 +10,9 @@ function check_stamp() {
     || printf "\033[0;31mStamp-check Failed: Not sourcing $1\033[0m\n"
 }
 
+# Add the local user path unless it exists
+[[ $PATH =~ $HOME/.local/bin ]] || export PATH="$PATH:$HOME/.local/bin"
+
 # Load profiles from /etc/profile.d
 if test -d $HOME/.local/etc/profile.d/; then
   for profile in $HOME/.local/etc/profile.d/*.sh; do
@@ -19,4 +22,3 @@ if test -d $HOME/.local/etc/profile.d/; then
   unset profile
 fi
 
-[[ $PATH =~ $HOME/.local/bin ]] || export PATH="$PATH:$HOME/.local/bin"
