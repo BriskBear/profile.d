@@ -27,6 +27,12 @@ function out-percent() {
   echo "scale = 4 ; $lines / 180 * 100"|bc|awk -F'\.' '{print $1}' 2>/dev/null
 }
 
+function get-asdf() {
+  pushd $HOME/.local/bin 
+    curl -#L https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz | tar xzf - 
+  popd
+}
+
 exec 3>&1
 trap 'exec 3>&1 4>&2' 0 1 2 3
 exec 1>>$log
@@ -78,7 +84,7 @@ GIT_TRACE=1
 GIT_CURL_VERBOSE=1
 
 # Download profile.d
-spinner git clone https://github.com/asdf-vm/asdf --depth 1 $HOME/.local/opt/asdf 2>>$log
+spinner get-asdf 2>>$log
 spinner git clone https://github.com/briskbear/profile.d --depth 1 $XP 2>>$log || exit 1
 
 # Clear trace config
@@ -91,7 +97,7 @@ do
 done
 
 # Extract appropriate binaries
-spinner tar -xf $XP/C/${ARCH}.tbz2 -C ~/.local/bin
+spinner tar xf $XP/C/${ARCH}.txz -C ~/.local/bin
 
 # backup and copy .profile
 mv $HOME/.profile $XP/profile.bak 2>/dev/null
