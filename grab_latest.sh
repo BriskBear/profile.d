@@ -5,8 +5,8 @@ function get-assets() {
   latest="https://github.com/${1}/releases/latest"
    
   echo `curl -#L ${latest}     |
-    ag -A20 Assets             |
-    ag expanded_assets         |
+    grep -A20 Assets           |
+    grep expanded_assets       |
     awk -F'src="' '{print $2}' |
     awk -F'"' '{print $1}'`
 }
@@ -17,8 +17,8 @@ function select-architecture() {
   query="linux\-x86_64.tar.gz|linux\-amd64.tar.gz|linux\-x86_64.txz|linux\-amd64.txz"
    
   echo `curl -#L ${url}         |
-    ag "${query}"               |
-    ag href                     |
+    grep "${query}"             |
+    grep href                   |
     awk -F'href="' '{print $2}' |
     awk -F'"' '{print $1}'`
 }
