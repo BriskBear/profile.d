@@ -90,3 +90,29 @@ function backup() {
   echo " === END === " >> "$log"
   unset buf full_name log mark md5 node path wrk
 }
+
+function rn-sum() {
+  sum=`md5sum "$1" | awk '{print $1}'`
+
+  mv -v "$1" "${sum}"
+}
+
+function select-restore() {
+  IFS=$'\n'
+  list=(`tar tivf ${1}`)  
+  # name=`sed "s/\..+$//g"`
+
+  echo -e "[38;5;28mChoose a file to restore: [0m"
+  for idx in $(seq ${#list[@]})
+  do
+    echo -e "  [38;5;226m${idx})[0m ${list[$(( idx - 1 ))]}"
+  done
+
+  read -p '#: '
+
+  selection=`echo ${list[$(( $REPLY - 1 ))]} | awk '{print $NF}'`
+
+  tar xfO "${1}" "${selection}"| tar xJvf -
+
+  unset IFS
+}
