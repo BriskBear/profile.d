@@ -39,9 +39,9 @@ function grab-latest() {
   # ARG[0] should be github <user|org>/<project> eg. 'neovim/neovim'
   repo="$1"
   assets=`get-assets ${repo}`
-  printf "[1A[0G"
+  printf "\033[1A\033[0G\033[0K"
   arch=`select-architecture ${assets}`
-  printf "[1A[0G"
+  printf "\033[1A\033[0G\033[0K"
 
   downstract ${arch}
 }
