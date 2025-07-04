@@ -14,3 +14,5 @@ export XDG_CONFIG_PROFILE=$HOME/.local/etc/profile.d
 ## XDG Shortcuts
 export XH=$XDG_CONFIG_HOME
 export XP=$XDG_CONFIG_PROFILE
+
+export doas=`which doas 2>/dev/null || which sudo 2>/dev/null`
