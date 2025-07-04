@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Archlinux package_manager shortcuts
 function arch-update() {
    $doas pacman -Scc --noconfirm

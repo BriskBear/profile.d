@@ -16,7 +16,7 @@ function check-stamp() {
 # Load profiles from /etc/profile.d
 if test -d $HOME/.local/etc/profile.d/; then
   for profile in $HOME/.local/etc/profile.d/*.sh; do
-    test -r "$profile" && check_stamp "$profile"
+    test -r "$profile" && check-stamp "$profile"
   done
 
   unset profile
