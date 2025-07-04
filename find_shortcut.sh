@@ -1,6 +1,6 @@
 # Find where the shortcut is to review / update it : 
 shortcuts=(
-  /etc/profile.d
+  $XP
 )
 
 function find_shortcut() {
