@@ -46,7 +46,7 @@ XP=$HOME/.local/etc/profile.d
 # Use sudo to install dependencies unless already root
 [[ $UID == 0 ]]        \
   && export sudo=      \
-  || export sudo=`which doas 2>/dev/null || which sudo 2>/dev/null`
+  || export sudo='sudo'
 
 # Assign the correct package-manager command
 case "$DISTRO" in
