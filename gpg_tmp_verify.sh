@@ -1,5 +1,5 @@
 # Verify the gpg signature of a file from a users github account : 
-function gpg_tmp_verify() {
+function gpg-tmp_verify() {
    [[ $# < 1 ]] && reply -e "Usage: gpg_tmp_verify <signature> [user]"
 
    leaf="$1"

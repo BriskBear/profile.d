@@ -12,9 +12,9 @@ PURGE["ubuntu"]='apt purge'
 SETUP["arch"]='pacman -S --noconfirm'
 SETUP["ubuntu"]='apt-get install -y'
 UPDATE["arch"]='sudo pacman -Scc --noconfirm ; sudo pacman -Syu --noconfirm'
-UPDATE["ubuntu"]=ubuntu_update
+UPDATE["ubuntu"]=ubuntu-update
 
-function ubuntu_update() {
+function ubuntu-update() {
   sudo apt update
   sudo apt upgrade -y
 }

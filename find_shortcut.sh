@@ -3,11 +3,11 @@ shortcuts=(
   $XP
 )
 
-function find_shortcut() {
+function find-shortcut() {
   printf '%s\n' ${shortcuts[@]}|
    xargs -I % ag " $1" % --hidden --color|
     sed -e 's/\s\+/ /'|
      sed -e 's/\#/\n\# /'
 }
 
-alias ?='find_shortcut'
+alias ?='find-shortcut'

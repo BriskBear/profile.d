@@ -1,5 +1,5 @@
 # Initialize ssh config directory : 
-function ssh_init() {
+function ssh-init() {
   errColor="\u001b[38;5;160m"
   warnColor="\u001b[38;5;47m"
   nc="\u001b[0m"

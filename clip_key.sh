@@ -1,5 +1,5 @@
 # Decrypt keepass password to clipboard, clear after 5 seconds : 
-function clipkey() {
+function clip-key() {
   dunstify "ClipKey $1" -t 5000
 
   case "$1" in
@@ -14,7 +14,7 @@ function clipkey() {
   esac
 }
 
-function lock_key() {
+function lock-key() {
   if [ $# -ne 1 ]
   then
     reply -e 'Requires output file name'
@@ -31,4 +31,4 @@ function lock_key() {
     gpg -a -se -r $default_key -o $cred_dir/$1
 }
 
-# alias tok='clipkey Token.asc'
+# alias tok='clip-key Token.asc'

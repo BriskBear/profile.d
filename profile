@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Prep Loader
-function check_stamp() { 
+function check-stamp() { 
   modified=$(stat -c %Y "$1")
   timestamp=$(head -n 1 "$1"|awk -F': ' '{print $NF}')
 

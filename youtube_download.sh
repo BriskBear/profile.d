@@ -2,7 +2,7 @@
 [[ -r $XP/01reply.sh ]] && . $XP/01reply.sh
 
 ## Remove cruft, lowercase and replace '.opus' with '.flac'
-function fix_name() {
+function yt-fix-name() {
   echo "$1"                |
     sed 's/_-_/-/g'        |
     sed 's/-\[.\+\]//g'    |
@@ -18,7 +18,7 @@ function youtube-convert() {
 
     for name in "${old_names[@]}"
     do
-      new_name=`fix_name "$name"`
+      new_name=`yt-fix-name "$name"`
 
       ffmpeg -i $name -strict experimental "$new_name"
 

@@ -1,5 +1,5 @@
 # sample terminal 256-colors : 
-function color_sample() {
+function color-sample() {
   numbers=( $(seq 0 256) )
   lead="\u001b[38;5;16m\u001b[1;\u001b[48;5;"
   nc="\u001b[0m"

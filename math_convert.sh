@@ -1,11 +1,11 @@
 # Who can remember all of these conversion ratios anyway : 
-function celcius_to_fahrenheit() {
+function celcius-to-fahrenheit() {
   echo "$1 * 9 / 5 + 32"|bc
 }
 
-function fahrenheit_to_celcius() {
+function fahrenheit-to-celcius() {
   echo "($1 - 32) * 5 / 9"|bc
 }
 
-alias c2f='celcius_to_fahrenheit'
-alias f2c='fahrenheit_to_celcius'
+alias c2f='celcius-to-fahrenheit'
+alias f2c='fahrenheit-to-celcius'

@@ -5,7 +5,7 @@ export ASDF_DATA_DIR="$HOME/.local/share/asdf"
 
 . <(asdf completion bash)
 
-function asdf_install_latest() {
+function asdf-install-latest() {
   lang="$1"
 
   # Add plugin if without
