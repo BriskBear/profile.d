@@ -1,5 +1,4 @@
-# TMUX Shortcuts, Attach creates the session if it does not exist : 1762971281
-tmux-attach() {
+# TMUX Shortcuts, Attach creates the session if it does not exist : 
   session="$1"
   
   [[ ! -n $session ]]          \
