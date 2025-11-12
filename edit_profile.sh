@@ -9,8 +9,8 @@ function _edit-profile_completions() {
   PROFILES=(`find $XP | ag '\.sh$' | sed "s:$HOME/.local/etc/profile.d/::"`) 
 
   if [[ ${COMP_WORDS[0]} =~ ':' ]]
-  then COMPREPLY=($(compgen -W "${PROFILES[*]}" "${COMP_WORDS[2]}"))
-  else COMPREPLY=($(compgen -W "${PROFILES[*]}" "${COMP_WORDS[1]}"))
+  then COMPREPLY=(`compgen -W "${PROFILES[*]}" "${COMP_WORDS[2]}"`)
+  else COMPREPLY=(`compgen -W "${PROFILES[*]}" "${COMP_WORDS[1]}"`)
   fi
 }
 
