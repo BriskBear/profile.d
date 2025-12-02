@@ -20,8 +20,8 @@ function container-list() {
 }
 
 function image-list() {
-  export ilist=($(box image list -a|tail -n +2|awk '{print $3}'))
-  box image list -a
+  export ilist=($(box image list -a --format table|tail -n +2|awk '{print $3}'))
+  box image list -a --format table
 }
 
 function container-search() {
@@ -45,15 +45,17 @@ function box-search-stop() {
 }
 
 function box-search-enter() {
+  args=`echo ${@:2} | sed 's/ -e//g'`
+
   if [[ $# -eq 1 ]]
-  then box exec -it $(container-search $1) bash
-  else box exec -it $(container-search $1) ${@:2}
+  then box exec -it $(container-search $1) bash || ( box exec -it $(container-search $1) ash )
+  else box exec -it $(container-search $1) ${args[@]}
   fi
 }
 
 function box-remove() {
   [[ $# == 2 ]] && box "$1" rm -f "$2" \
-    || error "Usage: box-remove <container|image> <id>\n  Wrong argument count: $#"
+    || error "Usage: 1752780974box-remove <container|image> <id>\n  Wrong argument count: $#"
 }
 
 function box-search-rm() {
@@ -61,7 +63,10 @@ function box-search-rm() {
 }
 
 function box-search-run() {
-  box run -h $1 --name $1 -d $(image-search $1|head -n1) tail -f /dev/null
+  if [[ "${@}" =~ ' -e' ]]
+  then box run -h $1 --name $1 -d $(image-search $1|head -n1) /usr/bin/entrypoint.sh
+  else box run -h $1 --name $1 -d $(image-search $1|head -n1) tail -f /dev/null
+  fi
 }
 
 function box-search-destroy() {
@@ -83,11 +88,13 @@ function box-remove-all() {
 }
 
 function box-run-enter() {
-  box-search-run   $1
-  box-search-enter $1
+  [[ "${@}" =~ ' -e' ]] && export flags='-e'
+
+  box-search-run   $1 $flags
+  box-search-enter "${@}"
 }
 
-alias bcp='box cp'
+alias bcp='box cp -L'
 alias bcrm='box-remove container'
 alias bcpr='box container prune'
 alias bipr='box image prune'
@@ -102,6 +109,7 @@ alias bsr='box-search-run'
 alias bsre='box-run-enter'
 alias bsrm='box-search-rm'
 alias bss='box-search-stop'
+alias dcu='docker-compose up --build -d'
 alias cl='container-list'
 alias cs='container-search'
 alias il='image-list'
