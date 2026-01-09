@@ -1,118 +1,82 @@
-# Backup file/directory target : 
-. $HOME/.local/etc/profile.d/01reply.sh
+function bak() {
+  WRK=`mktemp -d`
 
-export BACKUP_DIR=${BACKUP_DIR:-$HOME/data/.bak}
+  local OPTIND OPTARG opt flags
+  local target="$1"
 
-function sum-target() { md5sum "$1" | awk '{print $1}' ; }
+  while getopts 'hb:r' in $opt
+  do
+    case "$opt" in
+      b) BAK_DIR=$OPTARG ;;
+      h) __backup_usage ; return 0 ;;
+      r) flags+='--remove-files' ;;
+      *) __backup_usage ; return 1 ;;
+    esac
+  done
 
-function create-backup() {
-  echo "Creating new backup..." | tee -a "$log"
-
-  case "$node" in
-    'directory')
-      create-branch-backup
-      ;;
-    'regular file')
-      create-leaf-backup
-      ;;
-    *)
-      echo "Only directories and regular files are supported"
-      ;;
-  esac
-}
-
-function create-branch-backup() {
-  compress-branch
-
-  tar cJfC "${buf}" ${wrk} "${md5}"  # Add the summed-backup to the versioned-backup
-}
-
-function compress-branch() {
-  # Remove the .git tracking dir (don't need a million backups of this)
-  if [[ -d "${path}/${mark}/.git" ]]
-  then
-    pushd "${path}/${mark}" 2>&1            >> "$log"
-      git remote -v                         >> "$log"    # Log the git remote before cleanup
-    popd 2>&1                               >> "$log"
-    mv "${path}/${mark}/.git" "${path}/git" >> "$log"
+  # Quit with usage if the target is neither file nor directory
+  if [[ ! -d "$target" ]] && [[ ! -f "$target" ]]
+  then __backup_usage ; return 1
   fi
 
-  tar cJfC "${wrk}/${mark}.txz" ${path} ${mark}          # Compress the directory into the working (RAM) directory
+  # Set+Create BAK_DIR if unset/nonexist
+  export BAK_DIR=${BAK_DIR:=$HOME/.bak}
+  [[ -d "$BAK_DIR" ]] || mkdir -pv "$BAK_DIR"
 
-  md5=`sum-target "${wrk}/${mark}.txz"`                  # Get the MD5 of the compressed directory
+  local stub=`__trim_extenstion "$target"`
+  local interm="$WRK/$stub.txz"
+  local out_file="$BAK_DIR/$stub.tar"
 
-  mv -v "${wrk}/${mark}.txz" "${wrk}/${md5}" >> "$log"   # Rename the compressed folder as its MD5
-  [[ -d "${path}/git" ]] && mv "${path}/git" "${path}/${mark}/.git" >> "$log"
-}
+  # Create the intermediate tarchive - xz9
+  tar cJf "$interm" "$target" ${flags[@]}
+  cksum=`__get_md5 "$interm"`
+  mv "$interm" "$WRK/$cksum"
 
-function create-leaf-backup() {
-  md5=`sum-target ${path}/${mark}`
-
-  cp -v "${path}/${mark}" "${wrk}/${md5}" >> "$log"
-  tar cJfC "${buf}" ${wrk} ${md5}
-}
-
-function split-path() {
-  full_name=`realpath "$1" 2>/dev/null` || reply -e "Please supply a file:\n backup <directory|file>"
-  log="${BACKUP_DIR}/`date -d "today 0" -u +%s`_backup.log"
-  mark=`echo ${full_name} | awk -F/ '{print $NF}'`
-  node=`stat --printf=%F ${full_name}`
-  path="${full_name%/$mark}"
-  wrk=${wrk:-`mktemp -d`}
-
-  [[ -d ${BACKUP_DIR} ]] || mkdir -pv ${BACKUP_DIR} >> "$log"
-}
-
-function update-backup() {
-  echo "Updating existing backup..." | tee -a "$log"
-
-  xz -d "${buf}" -c > "${wrk}/${mark}.tar"  # Decompress tar archive (appendable)
-  [[ $node == 'directory' ]] && compress-branch || md5=`sum-target "${path}/${mark}"`  # Compress the target directory and get MD5
-  tar rf "${wrk}/${mark}.tar" -C "${wrk}" "${md5}"
-  xz -ez -9 "${wrk}/${mark}.tar" -c > "${buf}"
-}
-
-function backup() {
-  split-path "$1"  # Set local environment
-
-  buf="${BACKUP_DIR}/.${mark}.txz"  # 
-
-  echo " === `date` === " >> "$log"
-
-  # Create / Update the backup
-  if  [[ -f "${buf}" ]]
-  then update-backup
-  else create-backup
+  # Append / create the backup file
+  if [[ -f "$out_file" ]]
+  then tar -rf "$out_file" -C "$WRK" "$cksum" --remove-files
+  else tar -cf "$out_file" -C "$WRK" "$cksum" --remove-files
   fi
 
   # Cleanup
-  rm -rvf "${wrk}"     >> "$log"
-  echo " === END === " >> "$log"
-  unset buf full_name log mark md5 node path wrk
-}
-
-function rn-sum() {
-  sum=`md5sum "$1" | awk '{print $1}'`
-
-  mv -v "$1" "${sum}"
+  rm -rf $WRK 2>&1>/dev/null
+  unset cksum interm out_file stub target WRK
 }
 
 function select-restore() {
-  IFS=$'\n'
-  list=(`tar tivf ${1}`)  
-  # name=`sed "s/\..+$//g"`
+  local IFS=$'\n'
+  local list=(`tar tivf ${1}`)
 
-  echo -e "[38;5;28mChoose a file to restore: [0m"
-  for idx in $(seq ${#list[@]})
+  printf "\e[38;5;28mChoose a file to restore: \e[0m\n"
+  for vdx in $(seq ${#list[@]})
   do
-    echo -e "  [38;5;226m${idx})[0m ${list[$(( idx - 1 ))]}"
+    printf "\e[38;5;226m${vdx}\e[0m ${list[$((vdx -1))]}\n"
   done
 
   read -p '#: '
 
-  selection=`echo ${list[$(( $REPLY - 1 ))]} | awk '{print $NF}'`
+  local selection=`printf ${list[$((REPLY - 1))]} | awk '{print $NF}'`
 
-  tar xfO "${1}" "${selection}"| tar xJvf -
+  tar xfO "$1" "$selection" | tar xJvf -
 
-  unset IFS
+  unset IFS list selection
+}
+
+function __backup_usage() {
+  cat << ":"
+Usage: backup [-b <backup_directory>] [-h] [-r] <target>
+  Highly compresses a file / directory and adds it to an appropriate tar in the backup directory
+
+  -b <backup_directory> Set and alternate backup directory, defaults to $BAK_DIR OR $HOME/.bak
+  -h Display this help text
+  -r Remove the backup target after backing up
+:
+}
+
+function __get_md5() {
+  md5sum "$1" | awk '{print $1}'
+}
+
+function __trim_extenstion() {
+  printf "$1" | sed 's/\..\+$//g'
 }
