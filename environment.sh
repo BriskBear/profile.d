@@ -1,7 +1,7 @@
 # Global Environment : 
 ## Default Tools
 export BAK_DIR=$HOME/.bak
-export EDITOR=/usr/bin/nvim
+export EDITOR=nvim
 export PAGER=cat
 
 ## History

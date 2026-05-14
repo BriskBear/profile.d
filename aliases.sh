@@ -1,4 +1,5 @@
 # System-Wide Aliases : 
+alias :e='$EDITOR'
 alias SVC='sudo systemctl'   # Manage System Services
 alias UVC='systemctl --user' # Manage User Services
 alias cat='$PAGER'    # Invoke Default pager
