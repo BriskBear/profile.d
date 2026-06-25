@@ -1,9 +1,7 @@
-# Source essential asdf functions : 
+# Source essential asdf functions
 export ASDF_DATA_DIR="$HOME/.local/share/asdf"
 
 [[ $PATH =~ $ASDF_DATA_DIR/shims ]] || export PATH=$PATH:$ASDF_DATA_DIR/shims
-
-. <(asdf completion bash 2>/dev/null)
 
 function asdf-install-latest() {
   lang="$1"
