@@ -11,4 +11,3 @@ if test -d $HOME/.local/etc/profile.d/; then
 
   unset profile
 fi
-
